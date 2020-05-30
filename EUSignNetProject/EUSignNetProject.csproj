@@ -5,4 +5,12 @@
   </PropertyGroup>
 
 
+  <ItemGroup>
+    <PackageReference Include="itext7" Version="7.1.11" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Signature\" />
+    <Folder Include="DataObjects\" />
+    <Folder Include="Factories\" />
+  </ItemGroup>
 </Project>
