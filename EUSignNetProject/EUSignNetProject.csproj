@@ -7,10 +7,14 @@
 
   <ItemGroup>
     <PackageReference Include="itext7" Version="7.1.11" />
+    <PackageReference Include="log4net" Version="2.0.8" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Signature\" />
     <Folder Include="DataObjects\" />
     <Folder Include="Factories\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\Logger\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 </Project>
