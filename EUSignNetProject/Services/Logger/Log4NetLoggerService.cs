@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
 using System.Collections;
 using EUSignNetProject.Extensions;
+using log4net;
 
 namespace EUSignNetProject.Services.Logger
 {
@@ -31,7 +32,8 @@ namespace EUSignNetProject.Services.Logger
         static Log4NetLoggerService()
         {
             LogDeclaringType = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
-            Log = log4net.LogManager.GetLogger(LogDeclaringType);
+            Log = GetLogger(typeof(Log4NetLoggerService));
+
             var repository = Log.Logger.Repository;
             log4net.Config.XmlConfigurator.Configure(repository);
             LevelMap levelMap = repository.LevelMap;
@@ -190,7 +192,7 @@ namespace EUSignNetProject.Services.Logger
         {
             var requestId = Guid.Empty;
 
-            if (requestId == Guid.Empty && httpContextAccessor!=null && httpContextAccessor.HttpContext != null && httpContextAccessor.HttpContext.Response != null)
+            if (requestId == Guid.Empty && httpContextAccessor != null && httpContextAccessor.HttpContext != null && httpContextAccessor.HttpContext.Response != null)
             {
                 requestId = ParseCorrelationIdSafe(httpContextAccessor.HttpContext.Response.Headers["X-SPCorrelationId"]);
             }
@@ -201,7 +203,11 @@ namespace EUSignNetProject.Services.Logger
 
                 if (requestId == Guid.Empty)
                 {
-                    requestId = ParseCorrelationIdSafe(httpContextAccessor.HttpContext.Request.Form["SPCorrelationId"]);
+                    try
+                    {
+                        requestId = ParseCorrelationIdSafe(httpContextAccessor.HttpContext.Request.Form["SPCorrelationId"]);
+                    }
+                    catch { }
                 }
 
                 if (requestId == Guid.Empty)
@@ -261,6 +267,11 @@ namespace EUSignNetProject.Services.Logger
             message = message ?? string.Empty;
             message = Regex.Replace(message, "[\r\n\t]", string.Empty, RegexOptions.Compiled);
             return message;
+        }
+
+        private static ILog GetLogger(Type type)
+        {
+            return LogManager.GetLogger(type);
         }
     }
 }

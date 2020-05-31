@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="itext7" Version="7.1.11" />
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="3.1.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Signature\" />
@@ -16,5 +16,6 @@
     <Folder Include="Services\" />
     <Folder Include="Services\Logger\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Configuration\" />
   </ItemGroup>
 </Project>
