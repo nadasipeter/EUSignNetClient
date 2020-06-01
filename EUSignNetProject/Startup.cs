@@ -27,6 +27,8 @@ namespace EUSignNetProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ILoggerService, Log4NetLoggerService>();
+            services.AddScoped<ILoggerScopeFactory, StaticLoggerScopeFactory>();
+
             services.AddControllers();
             services.AddHttpContextAccessor();
         }

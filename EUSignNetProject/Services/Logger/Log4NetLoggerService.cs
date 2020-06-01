@@ -160,12 +160,12 @@ namespace EUSignNetProject.Services.Logger
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed", Justification = ".Net restriction")]
         public ILoggerScope Scope(string extraInfo, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "")
         {
-            var service = ServiceLocator.Resolve<ILoggerService>();
-            var scopeFactory = ServiceLocator.Resolve<ILoggerScopeFactory>();
+            var scopeFactory = (ILoggerScopeFactory)httpContextAccessor.HttpContext.RequestServices.GetService(typeof(ILoggerScopeFactory));
+
 
             scopeFactory.Guard(() => scopeFactory);
 
-            return scopeFactory.CreateScope(service, extraInfo, memberName, sourceFilePath);
+            return scopeFactory.CreateScope(extraInfo, memberName, sourceFilePath);
         }
 
         /// <summary>

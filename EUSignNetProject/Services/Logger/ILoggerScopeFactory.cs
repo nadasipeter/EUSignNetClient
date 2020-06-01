@@ -3,6 +3,6 @@ namespace EUSignNetProject.Services.Logger
 {
     public interface ILoggerScopeFactory
     {
-        ILoggerScope CreateScope(ILoggerService parentService, string extraInfo, string memberName, string sourceFilePath);
+        ILoggerScope CreateScope(string extraInfo, string memberName, string sourceFilePath);
     }
 }
